@@ -1,13 +1,18 @@
 from emotion_recognition import EmotionRecognizer
-from sklearn.neural_network import MLPClassifier
+from parameters import classifier_model, emotions, dataset, hyper_parameter, verbose, balance
+
 
 def test_9_emotions():
 
-    my_model = MLPClassifier()
-
-    rec = EmotionRecognizer(model=my_model, emotions=["neutral","calm","happy","sad","angry","fear","disgust","ps", "boredom"], balance=True, verbose=0)
-    # train the model
-    rec.train()
+    rec = EmotionRecognizer(model=classifier_model,
+                            emotions=emotions,
+                            dataset=dataset,
+                            tess_ravdess=dataset.get("tess_ravdess", True),
+                            emodb=dataset.get("emodb", True),
+                            custom_db=dataset.get("custom_db", True),
+                            # , balance=balance
+                            verbose=verbose
+                            )
 
     rec.determine_best_model()
 
